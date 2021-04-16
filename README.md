@@ -7,7 +7,8 @@
 
 ---
 #### Lancer le projet : &nbsp;
-- Cloner le projet depuis le repository github
+- Cloner le projet depuis le repository github et se placer à l'interieur du dossier IA-puissance-4
+- Executer `python3 -m venv venv`
 - Executer `. venv/bin/activate`
 - Executer `pip install -r requirements.txt`
 - Executer `FLASK_APP=app.py FLASK_ENV=development flask run`

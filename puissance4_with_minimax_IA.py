@@ -81,7 +81,6 @@ def minimax(board, depth, maximizingPlayer):
             b_copy = board.copy()
             drop_piece(b_copy, row, col, AI_PIECE)
             new_score = minimax(b_copy, depth - 1, False)[1]
-
             maximum = max(new_score, value)
 
         return column, maximum
