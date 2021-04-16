@@ -1,4 +1,5 @@
 import numpy as np
+import time
 import sys
 sys.path.insert(0, '/assets')
 from assets.params import *
@@ -106,3 +107,12 @@ def pick_best_move(board, piece):
             best_col = col
 
     return best_col
+
+def splashscreen(pygame, screen):
+    image = pygame.image.load("./assets/img/splashscreen.jpg")
+
+    screen.blit(image, (0,0)) 
+    pygame.display.update()
+    time.sleep(T_SPLASHSCREEN)
+    pygame.display.update()
+    return True

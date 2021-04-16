@@ -125,6 +125,7 @@ print_board(board)
 
 pygame.init()
 screen = pygame.display.set_mode(size)
+splashscreen(pygame, screen)
 
 draw_board(board)
 pygame.display.update()
