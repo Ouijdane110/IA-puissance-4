@@ -109,7 +109,7 @@ def pick_best_move(board, piece):
     return best_col
 
 def splashscreen(pygame, screen):
-    image = pygame.image.load("./assets/img/splashscreen.jpg")
+    image = pygame.image.load("./static/img/splashscreen.jpg")
 
     screen.blit(image, (0,0)) 
     pygame.display.update()
