@@ -8,8 +8,9 @@
 ---
 #### Lancer le projet : &nbsp;
 - Cloner le projet depuis le repository github
-- en cours
-- en cours
+- Executer `. venv/bin/activate`
+- Executer `pip install -r requirements.txt`
+- Executer `FLASK_APP=app.py FLASK_ENV=development flask run`
 
 ---
 #### Debug Environnement : &nbsp;
