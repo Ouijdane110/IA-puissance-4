@@ -29,26 +29,22 @@ def evaluate_window(window, piece):
 def score_position(board, piece):
     score = 0
 
-    ## Score center column
     center_array = [int(i) for i in list(board[:, COLUMN_COUNT // 2])]
     center_count = center_array.count(piece)
     score += center_count * 3
 
-    ## Score Horizontal
     for r in range(ROW_COUNT):
         row_array = [int(i) for i in list(board[r, :])]
         for c in range(COLUMN_COUNT - 3):
             window = row_array[c:c + WINDOW_LENGTH]
             score += evaluate_window(window, piece)
 
-    ## Score Vertical
     for c in range(COLUMN_COUNT):
         col_array = [int(i) for i in list(board[:, c])]
         for r in range(ROW_COUNT - 3):
             window = col_array[r:r + WINDOW_LENGTH]
             score += evaluate_window(window, piece)
 
-    ## Score posiive sloped diagonal
     for r in range(ROW_COUNT - 3):
         for c in range(COLUMN_COUNT - 3):
             window = [board[r + i][c + i] for i in range(WINDOW_LENGTH)]
@@ -73,9 +69,9 @@ def alphabeta(board, depth, alpha, beta, maximizingPlayer):
                 return (None, 100000000000000)
             elif winning_move(board, PLAYER_PIECE):
                 return (None, -10000000000000)
-            else:  # Game is over, no more valid moves
+            else:
                 return (None, 0)
-        else:  # Depth is zero
+        else:
             return (None, score_position(board, AI_PIECE))
     if maximizingPlayer:
         value = -math.inf
@@ -93,7 +89,7 @@ def alphabeta(board, depth, alpha, beta, maximizingPlayer):
                 break
         return column, value
 
-    else:  # Minimizing player
+    else:
         value = math.inf
         column = random.choice(valid_locations)
         for col in valid_locations:
@@ -136,7 +132,7 @@ splashscreen(pygame, screen)
 draw_board(board)
 pygame.display.update()
 
-myfont  = pygame.font.SysFont("monospace", 75)
+myfont  = pygame.font.SysFont(G_FONT, G_FONTSIZE)
 turn    = random.randint(PLAYER, AI)
 
 while not game_over:
@@ -155,8 +151,6 @@ while not game_over:
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             pygame.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
-            # print(event.pos)
-            # Ask for Player 1 Input
             if turn == PLAYER:
                 posx = event.pos[0]
                 col = int(math.floor(posx / SQUARESIZE))
@@ -166,7 +160,7 @@ while not game_over:
                     drop_piece(board, row, col, PLAYER_PIECE)
 
                     if winning_move(board, PLAYER_PIECE):
-                        label = myfont.render("Player 1 wins!!", 1, RED)
+                        label = myfont.render(PLAYER_VS_ALPHA_PLAYERWIN, 1, RED)
                         screen.blit(label, (40, 10))
                         game_over = True
 
@@ -176,21 +170,16 @@ while not game_over:
                     print_board(board)
                     draw_board(board)
 
-    # # Ask for Player 2 Input
     if turn == AI and not game_over:
-
-        # col = random.randint(0, COLUMN_COUNT-1)
-        # col = pick_best_move(board, AI_PIECE)
         col, minimax_score = alphabeta(board, 5, -math.inf, math.inf, True)
 
 
         if is_valid_location(board, col):
-            # pygame.time.wait(500)
             row = get_next_open_row(board, col)
             drop_piece(board, row, col, AI_PIECE)
 
             if winning_move(board, AI_PIECE):
-                label = myfont.render("Player 2 wins!!", 1, YELLOW)
+                label = myfont.render(PLAYER_VS_ALPHA_ALPHAWIN, 1, YELLOW)
                 screen.blit(label, (40, 10))
                 game_over = True
 
